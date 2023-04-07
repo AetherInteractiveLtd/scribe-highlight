@@ -1,0 +1,27 @@
+{
+    "__COMMENT1__": "This is basically just a big storage document for common regex patterns that I don't want to have to edit multiple version of in the grammar file and just want to copypaste.",
+    "__COMMENT2__": "Don't expect to see all of these in the grammar.json, I legit have just been practicing and throwing in any test regex patterns into here that I might possibly use. There is no organization yet.",
+
+    "KeywordOther": "property|actor|store|default|objective|scene|option|echo|set|interact|trigger",
+    "KeywordControl": "\\s*(start|exit|if|else|with|do)(?=\\W)",
+    "KeywordConstant": "\\s*(true|false)(?=\\W)",
+    "BlockStatement": "\\s*\\{|\\}",
+    "StatementEndOperators": "\\}|\\)|",
+
+    "Keyword3Things": "\\s*[property|actor|objective|scene|option|set|interact|trigger]",
+    "KeywordWithParamName": "\\s*(property|actor|objective|scene|option|set|interact|trigger)(?=\\W)(\\s+([a-zA-Z_]\\w*))?",
+    "KeywordWithTwoParamName": "\\s*(property|actor|objective|scene|option|set|interact|trigger)(?=\\W)(\\s+([a-zA-Z_]\\w*))?",
+
+    "ValidVariableName": "(\\s+([a-zA-Z_]\\w*))",
+    "ValidDollarSignVariableName": "(\\s+(\\$[a-zA-Z_]\\w*))",
+
+    "BalancedBracesMatch": "(?<re>{(?:(?>[^{}]+)|\\g<re>)*})",
+    "BalancedParenthesesMatch": "(?<re>\\((?:(?>[^()]+)|\\g<re>)*\\))",
+    "BalancedBracketsMatch": "(?<re>\\[(?:(?>[^[]]+)|\\g<re>)*\\])",
+
+    "KeywordOperators": "\\s*[\\-|\\+|\\*|\\?|\/|{|}|\\(|\\)|\\[|\\]|\\$|\\%|=|\\<|\\>|,|\\.|\\|;]",
+
+    "StringFullPatternMatch": "\\s*(\")(([.]|[^\\\"]|(\\\\)+|\\\")*)(\")",
+
+    "operatorBraceBalancingFullMatchTemplate": "\\s*(?<braceTypeClose>\\}){0}((?<braceTypeOpen>\\{))(((?<braceTypeNegClass>[^#{}]*)(?:(?!\\#)(?<re>\\g<braceTypeOpen>\\g<braceTypeNegClass>*(?:((?=\\#).*\\g<braceTypeNegClass>*|(\\g<re>\\g<braceTypeNegClass>*(?:(?=\\#).*\\g<braceTypeNegClass>*)?)))*\\g<braceTypeClose>|\\Z(?![^}]))*|(.*))\\g<braceTypeNegClass>*(?:(?=\\#).*)*)*)((\\g<braceTypeClose>|\\Z(?![^}])))"
+}

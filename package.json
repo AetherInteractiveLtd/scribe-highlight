@@ -1,0 +1,48 @@
+{
+  "name": "scribes-quill",
+  "displayName": "Scribes Quill",
+  "description": "Syntax highlighting for the Scribe language including template literals tagged `scribe`.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.76.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "scribes-quill.helloWorld",
+        "title": "Hello World"
+      }
+    ],
+    "languages": [
+      {
+        "id": "scribe",
+        "extensions": [".scribe"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "scribe",
+        "scopeName": "source.scribe",
+        "path": "./syntaxes/scribe.testgrammar.json"
+      },
+      {
+        "scopeName": "inline.scribe-injection",
+        "path": "./syntaxes/scribe.injection.json",
+        "injectTo": [
+          "source.js",
+          "source.jsx",
+          "source.js.jsx",
+          "source.ts",
+          "source.tsx"
+        ],
+        "embeddedLanguages": {
+          "meta.embedded.block.scribe": "scribe"
+        }
+      }
+    ]
+  }
+}

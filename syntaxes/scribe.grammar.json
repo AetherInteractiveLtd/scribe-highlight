@@ -1,0 +1,170 @@
+{
+    "scopeName": "source.scribe",
+    "foldingStartMarker": "\\{\\s*$",
+    "foldingStopMarker": "^\\s*\\}",
+    "patterns": [
+        { "include": "#main" }
+    ],
+    "repository": {
+        "main": {
+            "patterns": [
+                { "include": "#comments"},
+                { "include": "#identifiers"},
+                { "include": "#expressions"},
+                { "include": "#operators"}
+            ]
+        },
+        "comments": {
+            "patterns": [
+                { "include": "#commentNumberSign" }
+            ],
+            "repository": {
+                "commentNumberSign": {
+                    "match": "\\s*(\\#[^\n]*$)",
+                    "captures": { "1": { "name": "comment.line.number-sign.scribe" } }
+                }
+            }
+        },
+        "identifiers": {
+            "patterns": [
+                { "include": "#keywords" },
+                { "include": "#variables" }
+            ],
+            "repository": {
+                "keywords": {
+                    "patterns": [
+                        { "include": "#keywordOther" },
+                        { "include": "#keywordControl" },
+                        { "include": "#keywordConstant" }
+        
+                    ],
+                    "repository": {
+                        "keywordControl": {
+                            "match": "\\s*(start|exit|if|else|with|do)(?=\\W)",
+                            "captures": { "1": { "name": "keyword.control.scribe" } }
+                        },
+                        "keywordConstant":{
+                            "match": "\\s*(true|false)(?=\\W)",
+                            "captures": { "1": { "name": "constant.language.scribe"} }
+                        },
+                        "keywordOther": {
+                            "match": "\\s*(property|actor|store|default|objective|scene|option|echo|set|interact|trigger)(?=\\W)",
+                            "captures": { "1": { "name": "keyword.other.scribe" } }
+                        }
+                    }
+                },
+                "variables": {
+                    "patterns": [
+                        { "include": "#variableEnvRead" },
+                        { "include": "#variableReadwrite" }
+                    ],
+                    "repository": {
+                        "variableEnvRead": {
+                            "match": "(\\s*(\\$[a-zA-Z_]\\w*))",
+                            "captures": { "1": { "name": "variable.other.env-read.scribe" } }
+                        },
+                        "variableReadwrite": {
+                            "match": "(\\s*([a-zA-Z_]\\w*))",
+                            "captures": { "1": { "name": "variable.other.readwrite.scribe" } }
+                        }
+                    }
+                }
+            }
+        },
+        "expressions": {
+            "patterns": [
+                { "include": "#strings" },
+                { "include": "#numbers" }
+            ],
+            "repository": {
+                "strings": {
+                    "patterns": [
+                        { "include": "#stringDoubleQuote" }
+                    ],
+                    "repository": {
+                        "stringDoubleQuote": {
+                            "begin": "\"",
+                            "end": "\"",
+                            "contentName": "string.quoted.double.scribe",
+                            "beginCaptures": { "0": { "name": "string.quoted.double.begin.scribe" } },
+                            "endCaptures": { "0": { "name": "string.quoted.double.end.scribe" } },
+                            "patterns": [
+                                { "include": "source.ts#string-character-escape" }
+                            ]
+                        }
+                    }
+                },
+                "numbers": {
+                    "patterns": [
+                        { "include": "#numberBalancedDecimal" },
+                        { "include": "#numberUnbalancedDecimal" },
+                        { "include": "#numberInteger" }
+                    ],
+                    "repository": {
+                        "numberBalancedDecimal": {
+                            "match": "\\s*(\\d+)(\\.)(\\d+)",
+                            "captures": {
+                                "1": { "name": "constant.numeric.decimal.balanced.scribe" },
+                                "2": { "name": "keyword.operator.other.decimal.scribe" },
+                                "3": { "name": "constant.numeric.decimal.balanced.scribe" }
+                            }
+                        },
+                        "numberUnbalancedDecimal": {
+                            "match": "\\s*(\\.)(\\d+)",
+                            "captures": {
+                                "1": { "name": "keyword.operator.other.decimal.scribe" },
+                                "2s": { "name": "constant.numeric.decimal.unbalanced.scribe" }
+                            }
+                        },
+                        "numberInteger": {
+                            "match": "\\s*(\\d+)",
+                            "captures": { "1": { "name": "constant.numeric.integer.scribe" } }
+                        }
+                    }
+                }
+            }
+        },
+        "operators": {
+            "patterns": [
+                { "include": "#operatorBrace" },
+                { "include": "#operatorOther"}
+            ],
+            "repository": {
+                "operatorBrace": {
+                    "patterns": [
+                        { "include": "#operatorBraceBlock" },
+                        { "includ": "#operatorBraceRound" },
+                        { "includ": "#operatorBraceSquare" }
+                    ],
+                    "repository": {
+                        "operatorBraceBlock": {
+                            "match": "\\s([\\{\\}])",
+                            "captures": {
+                                "1": { "name": "keyword.operator.brace.block.scribe meta.brace.block.scribe punctuation.definition.block.scribe" }
+                            }
+                        },
+                        "operatorBraceRound": {
+                            "match": "\\s([\\(\\}))",
+                            "captures": {
+                                "1": { "name": "keyword.operator.brace.round.scribe meta.brace.round.scribe" }
+                            }
+                        },
+                        "OperatorBraceSquare": {
+                            "match": "\\s([\\[\\]])",
+                            "captures": {
+                                "1": { "name": "keyword.operator.brace.square.scribe meta.brace.square.scribe" }
+                            }
+                        }
+                    }
+                },
+                "operatorOther": {
+                    "match": "\\s*(\\-|\\+|\\*|\\?|\/|\\$|\\%|=|\\<|\\>|,|\\.|\\|;)",
+                    "captures": {
+                        "1": { "name": "keyword.operator.other.scribe" }
+                    }
+                }
+            }
+        }
+    }
+
+}
