@@ -1,5 +1,7 @@
 {
   "name": "scribes-quill",
+  "repository": "https://github.com/AetherInteractiveLtd/scribe-highlight",
+  "publisher": "Aether Interactive",
   "displayName": "Scribes Quill",
   "description": "Syntax highlighting for the Scribe language including template literals tagged `scribe`.",
   "version": "0.0.1",
